@@ -21,7 +21,9 @@ var TouchMenuLA = function (options) {
             disableSlide: false,
             handleSize: 20,
             disableMask: false,
-            maxMaskOpacity: 0.5
+            maxMaskOpacity: 0.5,
+
+            shadowGap: 20
         };
 
         this.isVisible = false;
@@ -40,12 +42,12 @@ var TouchMenuLA = function (options) {
     TouchMenuLA.prototype.initElements = function () {
         options.target.style.zIndex = options.zIndex;
         options.target.style.width = options.width + 'px';
-        options.target.style.left = -options.width + 'px';
+        options.target.style.left = -(options.width + options.shadowGap) + 'px';
 
         handle = document.createElement('div');
         handle.className = "tmla-handle";
-        handle.style.width = options.handleSize + 'px';
-        handle.style.right = -options.handleSize + 'px';
+        handle.style.width = options.handleSize + options.shadowGap + 'px';
+        handle.style.right = -options.handleSize - options.shadowGap + 'px';
 
         options.target.appendChild(handle);
 
@@ -67,9 +69,9 @@ var TouchMenuLA = function (options) {
     };
 
     TouchMenuLA.prototype.animateToPosition = function (pos) {
-        options.target.style.transform = 'translate3d(' + pos + 'px, 0, 0)';
-        options.target.style.WebkitTransform = 'translate3d(' + pos + 'px, 0, 0)';
-        options.target.style.MozTransform = 'translate3d(' + pos + 'px, 0, 0)';
+        options.target.style.transform = 'translate3d(' + (pos + options.shadowGap) + 'px, 0, 0)';
+        options.target.style.WebkitTransform = 'translate3d(' + (pos + options.shadowGap) + 'px, 0, 0)';
+        options.target.style.MozTransform = 'translate3d(' + (pos + options.shadowGap) + 'px, 0, 0)';
 
     };
 
